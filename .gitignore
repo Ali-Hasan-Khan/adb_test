@@ -1,0 +1,17 @@
+# Python
+__pycache__/
+*.pyc
+*.pyd
+*.pyo
+
+# Django / runtime artifacts
+src/rest/mydatabase
+*.sqlite3
+
+# Mongo data (created by docker-compose volume mount ${ADBREW_CODEBASE_PATH}/db)
+src/db/
+
+# Frontend
+src/app/.eslintcache
+src/app/node_modules/
+src/app/build/

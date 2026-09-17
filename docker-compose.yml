@@ -22,7 +22,13 @@ services:
       - ${ADBREW_CODEBASE_PATH}:/src
 
   mongo:
-    build: .
+    # Official MongoDB 4.4 image (matches the server version the original
+    # Dockerfile installed). Previously this service was built from the same
+    # python image via `build: .`, but mongodb-org 4.4 cannot install on the
+    # current bookworm-based base (needs libssl1.1, only libssl3 available).
+    # Everything else about this service (name, ports, volume, command) is
+    # unchanged, so `api` still reaches it at MONGO_HOST=mongo:27017.
+    image: mongo:4.4
     container_name: mongo
     restart: always
     ports:

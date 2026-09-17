@@ -26,7 +26,7 @@ SECRET_KEY = '00000000000000000000000000000000000000000000000000'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost']
+ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "localhost,127.0.0.1,api,0.0.0.0").split(",")
 
 
 # Application definition
@@ -77,10 +77,15 @@ WSGI_APPLICATION = 'rest.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
+# Django insists on a DATABASES setting, but per the assignment ALL data is
+# persisted/retrieved via the Mongo instance (see views.py / todo_repository).
+# We use an in-memory SQLite placeholder so Django boots without ever
+# touching a SQLite file on disk. No models, serializers or migrations are
+# used anywhere in this project.
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'mydatabase',
+        'NAME': ':memory:',
     }
 }
 
